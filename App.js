@@ -1,9 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
 import {
   Platform,
@@ -11,48 +5,40 @@ import {
   Text,
   View
 } from 'react-native';
+import AuthScreen from "./src/components/screens/AuthScreen";
+import BirthdayScreen from "./src/components/screens/SignUpScreens/SignUpBirthdayScreen";
+import NameScreen from "./src/components/screens/SignUpScreens/SignUpNameScreen";
+import EmailScreen from "./src/components/screens/SignUpScreens/SignUpEmailScreen";
+import SuccessScreen from "./src/components/screens/SignUpScreens/SignUpSuccessScreen";
+import { createStackNavigator, createSwitchNavigator } from "react-navigation";
+import TabNavigator from "./src/components/navigators/tabNavigator";
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
-
-type Props = {};
-export default class App extends Component<Props> {
+export default class App extends Component{
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit App.js
-        </Text>
-        <Text style={styles.instructions}>
-          {instructions}
-        </Text>
-      </View>
+      <SwitchNav/>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
+const AuthStack = createStackNavigator({
+  Auth: AuthScreen,
+  Name: NameScreen,
+  Email: EmailScreen,
+  Birthday: BirthdayScreen,
+  Success: SuccessScreen
+},{
+navigationOptions: {
+     header: null
+  }
+})
+
+const SwitchNav = createSwitchNavigator({
+  App: AuthStack,
+  Entry: TabNavigator,
+},
+  {
+    initialRouteName: 'App'
+  });
+
+
