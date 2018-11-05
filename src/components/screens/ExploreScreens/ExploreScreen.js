@@ -12,46 +12,35 @@ class ExploreScreen extends Component {
       roomChoices: data_samples
     };
   }
-
   render() {
     return (
-      <View style={{backgroundColor: "white" }}>
+      <View style={{ backgroundColor: "white" }}>
         <ScrollView>
           <Text style={styles.title}> Explore </Text>
           <View>
             <CategoriesSelection categories={this.state.categories} />
           </View>
-
-          {/*   SUB CATEGORIES*/}
-
           <View>
-          <Text style={styles.location}>Zürich</Text>
+            <Text style={styles.location}>Zürich</Text>
             <RoomSelection rooms={this.state.roomChoices} />
           </View>
-
           <View>
-          <Text style={styles.location}>Stockholm</Text>
+            <Text style={styles.location}>Stockholm</Text>
             <RoomSelection rooms={this.state.roomChoices} />
           </View>
-
           <View>
-          <Text style={styles.location}>Copenhagen</Text>
+            <Text style={styles.location}>Copenhagen</Text>
             <RoomSelection rooms={this.state.roomChoices} />
           </View>
-
-
-          {/* MAIN VERTICAL SCROLL VIEW*/}
         </ScrollView>
-
       </View>
     );
   }
 }
-
 const styles = StyleSheet.create({
   title: {
-    fontSize: 40, 
-    fontWeight: "bold", 
+    fontSize: 40,
+    fontWeight: "bold",
     marginTop: 5,
     marginLeft: 10,
     marginRight: 10,

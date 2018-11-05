@@ -50,17 +50,13 @@ class SignUpBirthdayScreen extends Component {
                             style={{
                                 borderTopColor: '#eeeeee',
                                 borderTopWidth: 1,
-                                marginLeft:10,
-                            }}
-                        />
-
+                                marginLeft: 10,
+                            }}/>
                     </View>
                     <View style={styles.nextButton}>
                         <TouchableOpacity onPress={() => this.props.navigation.navigate('Success')}>
                             <View style={styles.buttonStyle}>
-                                <Text>
-                                    <Icon name="ios-arrow-forward" size={24} color="#00bfa5" />
-                                </Text>
+                                <Icon name="ios-arrow-forward" size={24} color="#00bfa5" />
                             </View>
                         </TouchableOpacity>
                     </View>

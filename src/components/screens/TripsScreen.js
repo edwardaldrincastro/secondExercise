@@ -7,20 +7,21 @@ class TripsScreen extends Component {
     this.state = {
     };
   }
-
   render() {
     return (
-      <View>
+      <View style={{flex: 1}}>
         <Text style={styles.title}> Trips </Text>
-
+        <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
+          <Text>No recent trips.</Text>
+        </View>
       </View>
     );
   }
 }
 const styles = StyleSheet.create({
   title: {
-    fontSize: 40, 
-    fontWeight: "bold", 
+    fontSize: 40,
+    fontWeight: "bold",
     marginTop: 5,
     marginLeft: 10,
     marginRight: 10,

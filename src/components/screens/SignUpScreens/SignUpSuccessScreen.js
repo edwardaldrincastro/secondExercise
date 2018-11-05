@@ -14,7 +14,7 @@ class SignUpSuccessScreen extends Component {
         return (
             <View style={styles.container}>
                 <View styles={styles.view}>
-                    <Text style={styles.welcome}> Sign up successful </Text>
+                    <Text style={styles.welcome}> Sign up Successful </Text>
                 </View>
                 <View style={styles.loginButton}>
                     <TouchableOpacity onPress={() => this.props.navigation.replace('Login')}>

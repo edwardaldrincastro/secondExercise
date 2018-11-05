@@ -13,7 +13,6 @@ class LoginScreen extends Component {
             filter: "SHOW"
         };
     }
-
     emailChangedHandler = (input) => {
         this.setState({
             email: input
@@ -46,7 +45,7 @@ class LoginScreen extends Component {
             <View style={{ flex: 1 }}>
                 <Header style={{ backgroundColor: "#00bfa5" }}>
                     <Left style={{ marginRight: "85%" }}>
-                        <Icon name="ios-arrow-back" size={30} color="#fff" onPress={() => this.props.navigation.goBack()} />
+                        <Icon name="ios-arrow-back" size={30} color="#fff" onPress={() => this.props.navigation.replace('Auth')} />
                     </Left>
                 </Header>
 
@@ -54,20 +53,19 @@ class LoginScreen extends Component {
                     <Text style={styles.welcome}> Login </Text>
                     <Text style={styles.email}>EMAIL</Text>
                     <View style={styles.firstNameInput}>
-                        <TextInput 
-                        textContentType="emailAddress"
-                        onChangeText={(val) => this.emailChangedHandler(val)} 
-                        underlineColorAndroid="white" />
+                        <TextInput
+                            textContentType="emailAddress"
+                            onChangeText={(val) => this.emailChangedHandler(val)}
+                            underlineColorAndroid="white" />
                     </View>
                     <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                         <Text style={styles.password}>PASSWORD</Text>
                         <TouchableOpacity onPress={this.showPasswordHandler}>
-                            <View style={{width: 30}}>
+                            <View style={{ width: 30 }}>
                                 <Text style={{ color: "white", fontSize: 10 }}>{this.state.filter}</Text>
                             </View>
                         </TouchableOpacity>
                     </View>
-
                     <View style={styles.lastNameInput}>
                         <TextInput
                             textContentType="password"
@@ -105,12 +103,12 @@ const styles = StyleSheet.create({
     email: {
         color: "#fff",
         fontSize: 12,
-        marginRight: 220
+        marginRight: 260
     },
     password: {
         color: "#fff",
         fontSize: 12,
-        marginRight: "60%"
+        marginRight: 200
     },
     firstNameInput: {
         width: "82%",

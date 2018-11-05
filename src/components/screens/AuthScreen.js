@@ -13,29 +13,25 @@ class AuthScreen extends Component {
     }
     loginHandler = () => {
         this.props.navigation.navigate('Login')
-      }
+    }
     render() {
         return (
             <View style={styles.container}>
-            {/* <Image source={brandIcon} style={styles.brandIcon} /> */}
+                {/* <Image source={brandIcon} style={styles.brandIcon} /> */}
                 <View styles={styles.view}>
                     <Text style={styles.welcome}> Welcome to Ting </Text>
                 </View>
                 <View style={styles.loginButton}>
                     <TouchableOpacity onPress={() => this.loginHandler()}>
                         <View style={styles.buttonStyle}>
-                            <Text style={styles.loginButtonText}>
-                                Login
-                            </Text>
+                            <Text style={styles.loginButtonText}>Login</Text>
                         </View>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.signUpButton}>
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('Name')}>
                         <View style={styles.buttonStyle}>
-                            <Text style={styles.signUpButtonText}>
-                                Sign Up
-                            </Text>
+                            <Text style={styles.signUpButtonText}>Sign Up</Text>
                         </View>
                     </TouchableOpacity>
                 </View>
@@ -86,11 +82,6 @@ const styles = StyleSheet.create({
     loginButtonText: {
         color: "#00bfa5",
         fontSize: 14,
-    },
-    buttonContainer: {
-        width: "100%",
-        // justifyContent: 'center',
-        alignItems: "center"
     },
     brandIcon: {
         height: 150,

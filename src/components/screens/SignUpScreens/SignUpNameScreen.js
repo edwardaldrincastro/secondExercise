@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
-import { Header, Left} from "native-base";
+import { Header, Left } from "native-base";
 
 class SignUpNameScreen extends Component {
     constructor(props) {
@@ -23,29 +23,26 @@ class SignUpNameScreen extends Component {
     }
     render() {
         return (
-            <View style={{flex: 1}}>
-                <Header style={{backgroundColor: "#00bfa5"}}>
-                    <Left style={{marginRight: "85%"}}>
-                        <Icon name="ios-arrow-back" size={30} color="#fff" onPress={()=>this.props.navigation.goBack()}/>
+            <View style={{ flex: 1 }}>
+                <Header style={{ backgroundColor: "#00bfa5" }}>
+                    <Left style={{ marginRight: "85%" }}>
+                        <Icon name="ios-arrow-back" size={30} color="#fff" onPress={() => this.props.navigation.goBack()} />
                     </Left>
                 </Header>
-
                 <View style={styles.container}>
                     <Text style={styles.welcome}> What is your name? </Text>
                     <Text style={styles.title}>FIRST NAME</Text>
                     <View style={styles.firstNameInput}>
-                       <TextInput onChangeText={(val) => this.firstNameChangedHandler(val)} underlineColorAndroid="white" />
+                        <TextInput onChangeText={(val) => this.firstNameChangedHandler(val)} underlineColorAndroid="white" />
                     </View>
                     <Text style={styles.title}>LAST NAME</Text>
                     <View style={styles.lastNameInput}>
-                        <TextInput onChangeText={(val) => this.lastNameChangedHandler(val)} underlineColorAndroid="white"/>
+                        <TextInput onChangeText={(val) => this.lastNameChangedHandler(val)} underlineColorAndroid="white" />
                     </View>
                     <View style={styles.nextButton}>
                         <TouchableOpacity onPress={() => this.props.navigation.navigate('Email')}>
                             <View style={styles.buttonStyle}>
-                                <Text>
-                                    <Icon name="ios-arrow-forward" size={24} color="#00bfa5"/>
-                                </Text>
+                                <Icon name="ios-arrow-forward" size={24} color="#00bfa5" />
                             </View>
                         </TouchableOpacity>
                     </View>

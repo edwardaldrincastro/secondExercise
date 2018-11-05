@@ -23,42 +23,36 @@ const TabNavigator = createBottomTabNavigator({
         const { routeName } = navigation.state;
         let iconName;
         if (routeName === 'EXPLORE') {
-          iconName = `md-search`;
+          iconName = `ios-search`;
         } else if (routeName === 'SAVED') {
-          iconName = `md-heart`;
+          iconName = `md-heart-outline`;
         } else if (routeName === 'TRIPS') {
-            iconName = `md-plane`;
+            iconName = `ios-plane`;
         } else if (routeName === 'INBOX') {
-            iconName = `ios-chatbubbles`;
+            iconName = `ios-chatbubbles-outline`;
         } else if (routeName === 'PROFILE') {
             iconName = `md-person`;
         }
-  
-        // You can return any component that you like here! We usually use an
-        // icon component from react-native-vector-icons
-        return <Icon name={iconName} size={24} color={tintColor} />;
-      },
-      
+        return <Icon name={iconName} size={24} color={tintColor} style={{
+          marginTop: 10}}/>;
+      },     
     }),
-    
     tabBarOptions: {
       activeTintColor: '#ff5252',
       inactiveTintColor: 'gray',
       showLabel: true,
       labelStyle: {
         fontSize: 8,
-        marginBottom: 12
+        marginBottom: 8
       },
       style: {
-        height: 50,
+        height: 50
     }
-    },
-    
-    
-  },{
+    },  
+  },
+  {
     initialRouteName: 'Home'
-},
-  );
+  },
+);
   
-
 export default TabNavigator;

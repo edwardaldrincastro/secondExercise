@@ -3,11 +3,8 @@ import { Text, View, StyleSheet, Image, ScrollView } from "react-native";
 
 const CategoriesSelection = (props) => {
     return (
-
         <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
-
             {props.categories.map((item, index) => (
-
                 <View style={styles.categories} key={index}>
                     <View style={{ height: 85 }}>
                         <Image source={{ uri: item.img }}
@@ -20,16 +17,11 @@ const CategoriesSelection = (props) => {
                     </View>
                     <Text style={styles.name}>{item.name}</Text>
                 </View>
-
             ))
             }
-
-
         </ScrollView>
     )
-
 }
-
 const styles = StyleSheet.create({
     categories: {
         height: 120,
@@ -43,7 +35,7 @@ const styles = StyleSheet.create({
     name: {
         fontSize: 15,
         fontWeight: 'bold',
-        margin: 5 
+        margin: 5
     }
 })
 

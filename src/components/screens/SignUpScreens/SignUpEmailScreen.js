@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
-import { Header, Left, Switch} from "native-base";
+import { Header, Left, Switch } from "native-base";
 
 class SignUpEmailScreen extends Component {
     constructor(props) {
@@ -29,27 +29,22 @@ class SignUpEmailScreen extends Component {
                         <Icon name="ios-arrow-back" size={30} color="#fff" onPress={() => this.props.navigation.goBack()} />
                     </Left>
                 </Header>
-
                 <View style={styles.container}>
                     <Text style={styles.welcome}> And, your email?</Text>
                     <Text style={styles.title}>EMAIL</Text>
                     <View style={styles.emailInput}>
                         <TextInput textContentType="emailAddress" onChangeText={(val) => this.emailChangedHandler(val)} underlineColorAndroid="white" />
                     </View>
-                    <View style={{flexDirection: "row"}}>
+                    <View style={{ flexDirection: "row" }}>
                         <View style={styles.subscribe}>
-                        <Text style={{color:"white", fontSize: 12,}}>I'd like to receive marketing and policy communications from Ting and its partners.</Text>
+                            <Text style={{ color: "white", fontSize: 12, }}>I'd like to receive marketing and policy communications from Ting and its partners.</Text>
                         </View>
-
                         <Switch value={this.state.toggleSwitch} onValueChange={this.toggleSwitchHandler} tintColor="#bbb" thumbTintColor="white" onTintColor="#64dd17" />
                     </View>
-                    
                     <View style={styles.nextButton}>
                         <TouchableOpacity onPress={() => this.props.navigation.navigate('Birthday')}>
-                            <View style={styles.buttonStyle}>
-                                <Text>
-                                    <Icon name="ios-arrow-forward" size={24} color="#00bfa5"/>
-                                </Text>
+                            <View style={styles.buttonStyle}>                         
+                                <Icon name="ios-arrow-forward" size={24} color="#00bfa5" />                             
                             </View>
                         </TouchableOpacity>
                     </View>
@@ -74,11 +69,10 @@ const styles = StyleSheet.create({
     title: {
         color: "#fff",
         fontSize: 12,
-        marginRight: "72%"
+        marginRight: "71%"
     },
     subscribe: {
-        width: "65%"
-        
+        width: "68%"
     },
     emailInput: {
         width: "82%",

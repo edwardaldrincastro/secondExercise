@@ -7,21 +7,21 @@ class ProfileScreen extends Component {
     this.state = {
     };
   }
-
   render() {
     return (
       <View>
         <Text style={styles.title}> Profile Screen </Text>
-
-        <Button title="Log Out" onPress={() => this.props.navigation.navigate('App')}/>
+        <View style={{ alignItems: "center", justifyContent: 'center', }}>
+          <Button title="Log Out" onPress={() => this.props.navigation.navigate('App')} />
+        </View>
       </View>
     );
   }
 }
 const styles = StyleSheet.create({
   title: {
-    fontSize: 40, 
-    fontWeight: "bold", 
+    fontSize: 40,
+    fontWeight: "bold",
     marginTop: 5,
     marginLeft: 10,
     marginRight: 10,

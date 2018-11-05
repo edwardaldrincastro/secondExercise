@@ -9,7 +9,6 @@ class SavedScreen extends Component {
       savedList: saved_list
     };
   }
-
   render() {
     return (
       <ScrollView style={{backgroundColor: "white"}}>
