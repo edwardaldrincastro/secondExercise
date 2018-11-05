@@ -1,12 +1,26 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, Dimensions } from 'react-native';
 import brandIcon from '../../assets/hot-air-balloon.png';
 
 class AuthScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            viewMode: Dimensions.get("window").height > 500 ? "portrait" : "landscape"
         };
+        Dimensions.addEventListener("change", this.updateStyles)
+
+    }
+
+    componentWillUnmount() {
+        Dimensions.removeEventListener("change", this.updateStyles)
+    }
+
+    updateStyles = (dims) => {
+        this.setState({
+            // viewMode: Dimensions.get("window").height > 500 ? "portrait" : "landscape"
+            viewMode: dims.window.height > 500 ? "portrait" : "landscape"
+        })
     }
     static navigationOptions = {
         header: null
@@ -19,7 +33,8 @@ class AuthScreen extends Component {
             <View style={styles.container}>
                 {/* <Image source={brandIcon} style={styles.brandIcon} /> */}
                 <View styles={styles.view}>
-                    <Text style={styles.welcome}> Welcome to Ting </Text>
+                    <Text style={this.state.viewMode === "portrait" ? styles.portraitWelcome : styles.landscapeWelcome}>Welcome to Ting</Text>
+
                 </View>
                 <View style={styles.loginButton}>
                     <TouchableOpacity onPress={() => this.loginHandler()}>
@@ -46,10 +61,16 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#00bfa5',
     },
-    welcome: {
+    portraitWelcome: {
         color: "#fff",
         fontSize: 22,
         marginRight: 145,
+        marginBottom: 10
+    },
+    landscapeWelcome: {
+        color: "#fff",
+        fontSize: 22,
+        marginRight: 330,
         marginBottom: 10
     },
     loginButton: {
