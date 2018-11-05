@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, Dimensions } from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
 import { Header, Left } from "native-base";
 
@@ -10,9 +10,23 @@ class LoginScreen extends Component {
             email: "",
             password: "",
             showPass: true,
-            filter: "SHOW"
+            filter: "SHOW",
+            viewMode: Dimensions.get("window").height > 500 ? "portrait" : "landscape"
         };
-    }
+        Dimensions.addEventListener("change", this.updateStyles)
+    
+      }
+    
+      componentWillUnmount() {
+        Dimensions.removeEventListener("change", this.updateStyles)
+      }
+    
+      updateStyles = (dims) => {
+        this.setState({
+          // viewMode: Dimensions.get("window").height > 500 ? "portrait" : "landscape"
+          viewMode: dims.window.height > 500 ? "portrait" : "landscape"
+        })
+      }
     emailChangedHandler = (input) => {
         this.setState({
             email: input
@@ -40,6 +54,13 @@ class LoginScreen extends Component {
             })
         }
     }
+    loginHandler = () => {
+        if ((this.state.email && this.state.password) === ""){
+            alert("Your email and/or password is invalid.")
+        } else {
+        this.props.navigation.navigate('Entry')
+        }
+    }
     render() {
         return (
             <View style={{ flex: 1 }}>
@@ -50,8 +71,10 @@ class LoginScreen extends Component {
                 </Header>
 
                 <View style={styles.container}>
-                    <Text style={styles.welcome}> Login </Text>
-                    <Text style={styles.email}>EMAIL</Text>
+                <Text style={this.state.viewMode === "portrait" ? styles.portraitWelcome : styles.landscapeWelcome}>Login</Text>
+                    
+                <Text style={this.state.viewMode === "portrait" ? styles.portraitTitle : styles.landscapeTitle}>EMAIL</Text>
+                
                     <View style={styles.firstNameInput}>
                         <TextInput
                             textContentType="emailAddress"
@@ -59,7 +82,8 @@ class LoginScreen extends Component {
                             underlineColorAndroid="white" />
                     </View>
                     <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                        <Text style={styles.password}>PASSWORD</Text>
+                    <Text style={this.state.viewMode === "portrait" ? styles.portraitPassword : styles.landscapePassword}>PASSWORD</Text>
+                
                         <TouchableOpacity onPress={this.showPasswordHandler}>
                             <View style={{ width: 30 }}>
                                 <Text style={{ color: "white", fontSize: 10 }}>{this.state.filter}</Text>
@@ -74,7 +98,7 @@ class LoginScreen extends Component {
                             underlineColorAndroid="white" />
                     </View>
                     <View style={styles.nextButton}>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Entry')}>
+                        <TouchableOpacity onPress={() => this.loginHandler()}>
                             <View style={styles.buttonStyle}>
                                 <Text>
                                     <Icon name="ios-arrow-forward" size={24} color="#00bfa5" />
@@ -94,10 +118,16 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#00bfa5',
     },
-    welcome: {
+    portraitWelcome: {
         color: "#fff",
         fontSize: 20,
-        marginRight: 270,
+        marginRight: "70%",
+        marginBottom: 20
+    },
+    landscapeWelcome: {
+        color: "#fff",
+        fontSize: 20,
+        marginRight: "80%",
         marginBottom: 20
     },
     email: {
@@ -105,10 +135,15 @@ const styles = StyleSheet.create({
         fontSize: 12,
         marginRight: 260
     },
-    password: {
+    portraitPassword: {
         color: "#fff",
         fontSize: 12,
         marginRight: 200
+    },
+    landscapePassword: {
+        color: "#fff",
+        fontSize: 12,
+        marginRight: 400
     },
     firstNameInput: {
         width: "82%",

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
 import { Header, Left, DatePicker } from "native-base";
 
@@ -7,10 +7,22 @@ class SignUpBirthdayScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            chosenDate: new Date()
+            chosenDate: new Date(),
+            viewMode: Dimensions.get("window").height > 500 ? "portrait" : "landscape"
         };
-        this.setDate = this.setDate.bind(this);
-    };
+        Dimensions.addEventListener("change", this.updateStyles)
+    
+      }
+      componentWillUnmount() {
+        Dimensions.removeEventListener("change", this.updateStyles)
+      }
+    
+      updateStyles = (dims) => {
+        this.setState({
+          // viewMode: Dimensions.get("window").height > 500 ? "portrait" : "landscape"
+          viewMode: dims.window.height > 500 ? "portrait" : "landscape"
+        })
+      }
     setDate(newDate) {
         this.setState({ chosenDate: newDate });
     }
@@ -24,7 +36,8 @@ class SignUpBirthdayScreen extends Component {
                 </Header>
                 <View style={styles.container}>
                     <View styles={styles.view}>
-                        <Text style={styles.welcome}> When is your birthday? </Text>
+                        <Text style={this.state.viewMode === "portrait" ? styles.portraitWelcome : styles.landscapeWelcome}>When is your birthday?</Text>
+                   
                     </View>
                     <View>
                         <Text style={styles.description}>You must be at least 18 years old to use Ting. Other people won't see your Birthday.</Text>
@@ -83,10 +96,16 @@ const styles = StyleSheet.create({
         fontSize: 14,
         marginLeft: 21
     },
-    welcome: {
+    portraitWelcome: {
         color: "#fff",
         fontSize: 20,
         marginRight: "35%",
+        marginBottom: 20
+    },
+    landscapeWelcome: {
+        color: "#fff",
+        fontSize: 20,
+        marginRight: "50%",
         marginBottom: 20
     },
     nextButton: {

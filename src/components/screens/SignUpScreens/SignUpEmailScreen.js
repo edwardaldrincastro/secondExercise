@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, Dimensions } from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
 import { Header, Left, Switch } from "native-base";
 
@@ -8,9 +8,23 @@ class SignUpEmailScreen extends Component {
         super(props);
         this.state = {
             email: "",
-            toggleSwitch: true
+            toggleSwitch: true,
+            viewMode: Dimensions.get("window").height > 500 ? "portrait" : "landscape"
         };
-    }
+        Dimensions.addEventListener("change", this.updateStyles)
+    
+      }
+    
+      componentWillUnmount() {
+        Dimensions.removeEventListener("change", this.updateStyles)
+      }
+    
+      updateStyles = (dims) => {
+        this.setState({
+          // viewMode: Dimensions.get("window").height > 500 ? "portrait" : "landscape"
+          viewMode: dims.window.height > 500 ? "portrait" : "landscape"
+        })
+      }
     emailChangedHandler = (input) => {
         this.setState({
             email: input
@@ -21,6 +35,13 @@ class SignUpEmailScreen extends Component {
             toggleSwitch: !this.state.toggleSwitch
         })
     }
+    credentialsHandler = () => {
+        if (this.state.email === ""){
+            alert("Please enter your email.")
+        } else {
+        this.props.navigation.navigate('Birthday')
+        }
+    }
     render() {
         return (
             <View style={{ flex: 1 }}>
@@ -30,9 +51,9 @@ class SignUpEmailScreen extends Component {
                     </Left>
                 </Header>
                 <View style={styles.container}>
-                    <Text style={styles.welcome}> And, your email?</Text>
-                    <Text style={styles.title}>EMAIL</Text>
-                    <View style={styles.emailInput}>
+                    <Text style={this.state.viewMode === "portrait" ? styles.portraitWelcome : styles.landscapeWelcome}>And your name?</Text>
+                    <Text style={this.state.viewMode === "portrait" ? styles.portraitTitle : styles.landscapeTitle}>EMAIL</Text>
+                <View style={styles.emailInput}>
                         <TextInput textContentType="emailAddress" onChangeText={(val) => this.emailChangedHandler(val)} underlineColorAndroid="white" />
                     </View>
                     <View style={{ flexDirection: "row" }}>
@@ -42,7 +63,7 @@ class SignUpEmailScreen extends Component {
                         <Switch value={this.state.toggleSwitch} onValueChange={this.toggleSwitchHandler} tintColor="#bbb" thumbTintColor="white" onTintColor="#64dd17" />
                     </View>
                     <View style={styles.nextButton}>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Birthday')}>
+                        <TouchableOpacity onPress={() => this.credentialsHandler()}>
                             <View style={styles.buttonStyle}>                         
                                 <Icon name="ios-arrow-forward" size={24} color="#00bfa5" />                             
                             </View>
@@ -60,16 +81,27 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#00bfa5',
     },
-    welcome: {
+    portraitWelcome: {
         color: "#fff",
         fontSize: 20,
         marginRight: "50%",
         marginBottom: 20
     },
-    title: {
+    landscapeWelcome: {
+        color: "#fff",
+        fontSize: 20,
+        marginRight: "60%",
+        marginBottom: 20
+    },
+    portraitTitle: {
         color: "#fff",
         fontSize: 12,
-        marginRight: "71%"
+        marginRight: "72%"
+    },
+    landscapeTitle: {
+        color: "#fff",
+        fontSize: 12,
+        marginRight: "76%"
     },
     subscribe: {
         width: "68%"
