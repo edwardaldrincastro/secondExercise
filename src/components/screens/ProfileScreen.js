@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, Button, StyleSheet } from 'react-native';
 
 class ProfileScreen extends Component {
   constructor(props) {
@@ -11,11 +11,22 @@ class ProfileScreen extends Component {
   render() {
     return (
       <View>
-        <Text> Profile Screen </Text>
+        <Text style={styles.title}> Profile Screen </Text>
+
         <Button title="Log Out" onPress={() => this.props.navigation.navigate('App')}/>
       </View>
     );
   }
 }
-
+const styles = StyleSheet.create({
+  title: {
+    fontSize: 40, 
+    fontWeight: "bold", 
+    marginTop: 5,
+    marginLeft: 10,
+    marginRight: 10,
+    marginBottom: 10,
+    color: "#6d6d6d"
+  }
+})
 export default ProfileScreen;

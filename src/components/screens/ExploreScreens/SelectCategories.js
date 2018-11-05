@@ -4,7 +4,7 @@ import { Text, View, StyleSheet, Image, ScrollView } from "react-native";
 const CategoriesSelection = (props) => {
     return (
 
-        <ScrollView horizontal={true}>
+        <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
 
             {props.categories.map((item, index) => (
 
@@ -18,7 +18,7 @@ const CategoriesSelection = (props) => {
                                 resizeMode: 'stretch'
                             }} />
                     </View>
-                    <Text>{item.name}</Text>
+                    <Text style={styles.name}>{item.name}</Text>
                 </View>
 
             ))
@@ -37,7 +37,13 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
         margin: 10,
         borderWidth: 1,
-        borderColor: "#bbb"
+        borderColor: "#bbb",
+        borderRadius: 3,
+    },
+    name: {
+        fontSize: 15,
+        fontWeight: 'bold',
+        margin: 5 
     }
 })
 

@@ -1,10 +1,5 @@
 import React, { Component } from 'react';
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+import LoginScreen from "./src/components/screens/LoginScreen";
 import AuthScreen from "./src/components/screens/AuthScreen";
 import BirthdayScreen from "./src/components/screens/SignUpScreens/SignUpBirthdayScreen";
 import NameScreen from "./src/components/screens/SignUpScreens/SignUpNameScreen";
@@ -26,7 +21,8 @@ const AuthStack = createStackNavigator({
   Name: NameScreen,
   Email: EmailScreen,
   Birthday: BirthdayScreen,
-  Success: SuccessScreen
+  Success: SuccessScreen,
+  Login: LoginScreen
 },{
 navigationOptions: {
      header: null

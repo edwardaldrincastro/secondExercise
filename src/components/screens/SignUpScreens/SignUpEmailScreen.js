@@ -1,15 +1,26 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
-import { Header, Left} from "native-base";
+import { Header, Left, Switch} from "native-base";
 
 class SignUpEmailScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            email: "",
+            toggleSwitch: true
         };
     }
-
+    emailChangedHandler = (input) => {
+        this.setState({
+            email: input
+        })
+    }
+    toggleSwitchHandler = () => {
+        this.setState({
+            toggleSwitch: !this.state.toggleSwitch
+        })
+    }
     render() {
         return (
             <View style={{ flex: 1 }}>
@@ -23,11 +34,14 @@ class SignUpEmailScreen extends Component {
                     <Text style={styles.welcome}> And, your email?</Text>
                     <Text style={styles.title}>EMAIL</Text>
                     <View style={styles.emailInput}>
-                        <TextInput underlineColorAndroid="white" />
+                        <TextInput textContentType="emailAddress" onChangeText={(val) => this.emailChangedHandler(val)} underlineColorAndroid="white" />
                     </View>
-                    <View style={styles.subscribe}>
-                        <Text style={{color:"white", fontSize: 12}}>I'd like to receive marketing and policy communications from Ting and its partners.</Text>
-                    
+                    <View style={{flexDirection: "row"}}>
+                        <View style={styles.subscribe}>
+                        <Text style={{color:"white", fontSize: 12,}}>I'd like to receive marketing and policy communications from Ting and its partners.</Text>
+                        </View>
+
+                        <Switch value={this.state.toggleSwitch} onValueChange={this.toggleSwitchHandler} tintColor="#bbb" thumbTintColor="white" onTintColor="#64dd17" />
                     </View>
                     
                     <View style={styles.nextButton}>
@@ -54,7 +68,8 @@ const styles = StyleSheet.create({
     welcome: {
         color: "#fff",
         fontSize: 20,
-        marginRight: "50%"
+        marginRight: "50%",
+        marginBottom: 20
     },
     title: {
         color: "#fff",
@@ -62,7 +77,8 @@ const styles = StyleSheet.create({
         marginRight: "72%"
     },
     subscribe: {
-        width: "80%"
+        width: "65%"
+        
     },
     emailInput: {
         width: "82%",

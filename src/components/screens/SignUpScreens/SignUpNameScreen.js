@@ -7,9 +7,20 @@ class SignUpNameScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            firstName: "",
+            lastName: ""
         };
     }
-
+    firstNameChangedHandler = (input) => {
+        this.setState({
+            firstName: input
+        })
+    }
+    lastNameChangedHandler = (input) => {
+        this.setState({
+            lastName: input
+        })
+    }
     render() {
         return (
             <View style={{flex: 1}}>
@@ -23,13 +34,11 @@ class SignUpNameScreen extends Component {
                     <Text style={styles.welcome}> What is your name? </Text>
                     <Text style={styles.title}>FIRST NAME</Text>
                     <View style={styles.firstNameInput}>
-                       
-                        <TextInput underlineColorAndroid="white" />
+                       <TextInput onChangeText={(val) => this.firstNameChangedHandler(val)} underlineColorAndroid="white" />
                     </View>
                     <Text style={styles.title}>LAST NAME</Text>
                     <View style={styles.lastNameInput}>
-                        
-                        <TextInput underlineColorAndroid="white"/>
+                        <TextInput onChangeText={(val) => this.lastNameChangedHandler(val)} underlineColorAndroid="white"/>
                     </View>
                     <View style={styles.nextButton}>
                         <TouchableOpacity onPress={() => this.props.navigation.navigate('Email')}>
@@ -55,7 +64,8 @@ const styles = StyleSheet.create({
     welcome: {
         color: "#fff",
         fontSize: 20,
-        marginRight: "40%"
+        marginRight: "40%",
+        marginBottom: 20
     },
     title: {
         color: "#fff",

@@ -16,17 +16,16 @@ class SignUpSuccessScreen extends Component {
                 <View styles={styles.view}>
                     <Text style={styles.welcome}> Sign up successful </Text>
                 </View>
-                <View style={styles.signUpButton}>
-                    <TouchableOpacity onPress={() => this.props.navigation.replace('Auth')}>
-                    
+                <View style={styles.loginButton}>
+                    <TouchableOpacity onPress={() => this.props.navigation.replace('Login')}>
                         <View style={styles.buttonStyle}>
-                            
-                            <Text style={styles.signUpButtonText}>
-                                <Icon name="ios-arrow-forward" size={24} color="#00bfa5"/>
+                            <Text style={styles.loginButtonText}>
+                                Sign In
                             </Text>
                         </View>
                     </TouchableOpacity>
-                </View>
+                    </View>
+                   
             </View>
         );
     }
@@ -40,7 +39,8 @@ const styles = StyleSheet.create({
     },
     welcome: {
         color: "#fff",
-        fontSize: 20
+        fontSize: 20,
+        marginBottom: 20
     },
     loginButton: {
         width: "80%",
