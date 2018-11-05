@@ -130,10 +130,15 @@ const styles = StyleSheet.create({
         marginRight: "80%",
         marginBottom: 20
     },
-    email: {
+    portraitTitle: {
         color: "#fff",
         fontSize: 12,
-        marginRight: 260
+        marginRight: "72%"
+    },
+    landscapeTitle: {
+        color: "#fff",
+        fontSize: 12,
+        marginRight: "76%"
     },
     portraitPassword: {
         color: "#fff",
