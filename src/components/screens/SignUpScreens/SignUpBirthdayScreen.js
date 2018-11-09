@@ -8,8 +8,11 @@ class SignUpBirthdayScreen extends Component {
         super(props);
         this.state = {
             chosenDate: new Date(),
+            birthday: "",
             viewMode: Dimensions.get("window").height > 500 ? "portrait" : "landscape"
         };
+
+        this.setDate = this.setDate.bind(this)
         Dimensions.addEventListener("change", this.updateStyles)
     
       }
@@ -26,7 +29,18 @@ class SignUpBirthdayScreen extends Component {
     setDate(newDate) {
         this.setState({ chosenDate: newDate });
     }
+    submitHandler = (lastName, firstName, email) => {
+        this.props.navigation.navigate('Success', {
+            lastName: lastName,
+            firstName: firstName,
+            email: email,
+            birthday: this.state.birthday
+        })
+    }
     render() {
+        const lastName = this.props.navigation.getParam("lastName", "no last name")
+        const firstName = this.props.navigation.getParam("firstName", "no first name")
+        const email = this.props.navigation.getParam("email", "no email")
         return (
             <View style={{ flex: 1 }}>
                 <Header style={{ backgroundColor: "#00bfa5" }}>
@@ -53,12 +67,13 @@ class SignUpBirthdayScreen extends Component {
                             timeZoneOffsetInMinutes={undefined}
                             modalTransparent={false}
                             animationType={"fade"}
-                            androidMode={"default"}
+                            androidMode={"spinner"}
                             placeHolderText={this.state.chosenDate.toString().substr(4, 12)}
                             textStyle={{ color: "white", fontSize: 13, marginRight: "66%", marginTop: 10 }}
                             placeHolderTextStyle={{ color: "white", fontSize: 13, marginRight: "66%", marginTop: 10 }}
                             onDateChange={this.setDate}
                         />
+                        {console.log(this.state.chosenDate)}
                         <View
                             style={{
                                 borderTopColor: '#eeeeee',
@@ -67,7 +82,7 @@ class SignUpBirthdayScreen extends Component {
                             }}/>
                     </View>
                     <View style={styles.nextButton}>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Success')}>
+                        <TouchableOpacity onPress={() => this.submitHandler(lastName, firstName, email)}>
                             <View style={styles.buttonStyle}>
                                 <Icon name="ios-arrow-forward" size={24} color="#00bfa5" />
                             </View>

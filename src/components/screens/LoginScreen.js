@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, TextInput, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, Dimensions, AsyncStorage } from 'react-native';
 import Icon from "react-native-vector-icons/Ionicons";
 import { Header, Left } from "native-base";
+import { users } from "../data/users";
 
+const item = ""
 class LoginScreen extends Component {
     constructor(props) {
         super(props);
@@ -11,22 +13,24 @@ class LoginScreen extends Component {
             password: "",
             showPass: true,
             filter: "SHOW",
+            underlineColor: "white",
+            users: users,
             viewMode: Dimensions.get("window").height > 500 ? "portrait" : "landscape"
         };
         Dimensions.addEventListener("change", this.updateStyles)
-    
-      }
-    
-      componentWillUnmount() {
+
+    }
+
+    componentWillUnmount() {
         Dimensions.removeEventListener("change", this.updateStyles)
-      }
-    
-      updateStyles = (dims) => {
+    }
+
+    updateStyles = (dims) => {
         this.setState({
-          // viewMode: Dimensions.get("window").height > 500 ? "portrait" : "landscape"
-          viewMode: dims.window.height > 500 ? "portrait" : "landscape"
+            // viewMode: Dimensions.get("window").height > 500 ? "portrait" : "landscape"
+            viewMode: dims.window.height > 500 ? "portrait" : "landscape"
         })
-      }
+    }
     emailChangedHandler = (input) => {
         this.setState({
             email: input
@@ -55,12 +59,69 @@ class LoginScreen extends Component {
         }
     }
     loginHandler = () => {
-        if ((this.state.email && this.state.password) === ""){
-            alert("Your email and/or password is invalid.")
-        } else {
-        this.props.navigation.navigate('Entry')
-        }
+        // data = this.asyncLoginhandler()
+        // datas = JSON.parse(data)
+        // alert(`${data}.${datas}`)
+        if ((this.state.email && this.state.password) !== "") {
+
+            let user = this.state.users
+            // const result = user.filter(word => this.state.email === word.email)
+            // user.map((item, index) => {
+                const result = user.find(element => element.email === this.state.email)
+                if (result && result.email === this.state.email && result.password === this.state.password) {
+                    // if (data.email === this.state.email && data.password === this.state.password) {
+                        return this.props.navigation.navigate('Entry')
+                    } else {
+
+                        alert(`Your email or password is incorrect.`)
+                        this.setState({
+                            email: "",
+                            password: "",
+                            underlineColor: "white"
+                        })
+
+                    }
+                } else {
+                    alert("Please input email and/or password.")
+                    this.setState({
+                        underlineColor: "#e53935"
+                    })
+
+                
+            }
     }
+    //     asyncLoginhandler = async () => {
+    //             let userId = 'AB01';
+    //             try {
+    //                 console.log("Gonna get that")
+    //               result = await AsyncStorage.getItem(userId) || 'none';
+    //               console.log("got it")
+    //             //  item = JSON.parse(result)
+
+
+    //             } catch (error) {
+    //               // Error retrieving data
+    //               alert(error.message)
+    //               console.log(error.message);
+    //             }
+    //             return result
+    //     }
+    //     checker = async () => {
+    //         let userId = 'AB01';
+    //         try {
+    //             console.log("Gonna get that")
+    //           result = await AsyncStorage.getItem(userId) || 'none';
+    //           console.log("got it")
+    //          item = JSON.parse(result)
+
+
+    //         } catch (error) {
+    //           // Error retrieving data
+    //           alert(error.message)
+    //           console.log(error.message);
+    //         }
+    //         return alert(result)
+    // }
     render() {
         return (
             <View style={{ flex: 1 }}>
@@ -69,21 +130,21 @@ class LoginScreen extends Component {
                         <Icon name="ios-arrow-back" size={30} color="#fff" onPress={() => this.props.navigation.replace('Auth')} />
                     </Left>
                 </Header>
-
                 <View style={styles.container}>
-                <Text style={this.state.viewMode === "portrait" ? styles.portraitWelcome : styles.landscapeWelcome}>Login</Text>
-                    
-                <Text style={this.state.viewMode === "portrait" ? styles.portraitTitle : styles.landscapeTitle}>EMAIL</Text>
-                
+                    <Text style={this.state.viewMode === "portrait" ? styles.portraitWelcome : styles.landscapeWelcome}>Login</Text>
+
+                    <Text style={this.state.viewMode === "portrait" ? styles.portraitTitle : styles.landscapeTitle}>EMAIL</Text>
+
                     <View style={styles.firstNameInput}>
                         <TextInput
                             textContentType="emailAddress"
                             onChangeText={(val) => this.emailChangedHandler(val)}
-                            underlineColorAndroid="white" />
+                            underlineColorAndroid={this.state.underlineColor}
+                            value={this.state.email} />
                     </View>
                     <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                    <Text style={this.state.viewMode === "portrait" ? styles.portraitPassword : styles.landscapePassword}>PASSWORD</Text>
-                
+                        <Text style={this.state.viewMode === "portrait" ? styles.portraitPassword : styles.landscapePassword}>PASSWORD</Text>
+
                         <TouchableOpacity onPress={this.showPasswordHandler}>
                             <View style={{ width: 30 }}>
                                 <Text style={{ color: "white", fontSize: 10 }}>{this.state.filter}</Text>
@@ -95,7 +156,8 @@ class LoginScreen extends Component {
                             textContentType="password"
                             onChangeText={(val) => this.passwordChangedHandler(val)}
                             secureTextEntry={this.state.showPass}
-                            underlineColorAndroid="white" />
+                            underlineColorAndroid={this.state.underlineColor}
+                            value={this.state.password} />
                     </View>
                     <View style={styles.nextButton}>
                         <TouchableOpacity onPress={() => this.loginHandler()}>
@@ -106,11 +168,27 @@ class LoginScreen extends Component {
                             </View>
                         </TouchableOpacity>
                     </View>
+                    {/* <View style={styles.nextButton}>
+                        <TouchableOpacity onPress={() => this.checker()}>
+                            <View style={styles.buttonStyle}>
+                                <Text>
+                                    <Icon name="ios-arrow-forward" size={24} color="#00bfa5" />
+                                </Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View> */}
                 </View>
             </View>
         );
     }
+    
+    // componentDidMount() {
+    //     this.asyncLoginhandler()
+    //     .catch (console.log("error did mount"))
+    // }
+
 }
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,

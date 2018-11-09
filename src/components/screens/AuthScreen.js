@@ -11,7 +11,7 @@ class AuthScreen extends Component {
         Dimensions.addEventListener("change", this.updateStyles)
 
     }
-
+    
     componentWillUnmount() {
         Dimensions.removeEventListener("change", this.updateStyles)
     }
@@ -26,12 +26,13 @@ class AuthScreen extends Component {
         header: null
     }
     loginHandler = () => {
+        
         this.props.navigation.navigate('Login')
     }
     render() {
         return (
             <View style={styles.container}>
-                {/* <Image source={brandIcon} style={styles.brandIcon} /> */}
+                <Image source={brandIcon} style={styles.brandIcon} />
                 <View styles={styles.view}>
                     <Text style={this.state.viewMode === "portrait" ? styles.portraitWelcome : styles.landscapeWelcome}>Welcome to Ting</Text>
 

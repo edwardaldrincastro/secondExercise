@@ -3,6 +3,8 @@ import { View, Text, StyleSheet, TouchableOpacity, TextInput, Dimensions } from 
 import Icon from "react-native-vector-icons/Ionicons";
 import { Header, Left } from "native-base";
 
+
+
 class SignUpNameScreen extends Component {
     constructor(props) {
         super(props);
@@ -36,10 +38,16 @@ class SignUpNameScreen extends Component {
         })
     }
     credentialsHandler = () => {
-        if ((this.state.firstName && this.state.lastName) === ""){
-            alert("Please enter your first name and/or last name.")
+        if ((this.state.firstName && this.state.lastName) !== ""){
+            
+            this.props.navigation.navigate('Email', 
+            {
+                lastName: this.state.lastName, 
+                firstName: this.state.firstName
+            })
+            
         } else {
-        this.props.navigation.navigate('Email')
+            alert("Please enter your first name and/or last name.")
         }
     }
     render() {
@@ -56,11 +64,17 @@ class SignUpNameScreen extends Component {
                     <Text style={this.state.viewMode === "portrait" ? styles.portraitTitle : styles.landscapeTitle}>FIRST NAME</Text>
                 
                     <View style={styles.firstNameInput}>
-                        <TextInput onChangeText={(val) => this.firstNameChangedHandler(val)} underlineColorAndroid="white" />
+                        <TextInput 
+                        onChangeText={(val) => this.firstNameChangedHandler(val)} 
+                        underlineColorAndroid="white" 
+                        value={this.state.firstName}/>
                     </View>
                     <Text style={this.state.viewMode === "portrait" ? styles.portraitTitle : styles.landscapeTitle}>LAST NAME</Text>
                     <View style={styles.lastNameInput}>
-                        <TextInput onChangeText={(val) => this.lastNameChangedHandler(val)} underlineColorAndroid="white" />
+                        <TextInput 
+                        onChangeText={(val) => this.lastNameChangedHandler(val)} 
+                        underlineColorAndroid="white" 
+                        value={this.state.lastName}/>
                     </View>
                     <View style={styles.nextButton}>
                         <TouchableOpacity onPress={() => this.credentialsHandler()}>

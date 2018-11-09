@@ -35,14 +35,21 @@ class SignUpEmailScreen extends Component {
             toggleSwitch: !this.state.toggleSwitch
         })
     }
-    credentialsHandler = () => {
-        if (this.state.email === ""){
-            alert("Please enter your email.")
+    credentialsHandler = (lastName, firstName ) => {
+        if (this.state.email !== ""){
+            
+            this.props.navigation.navigate('Birthday', {
+                lastName: lastName,
+                firstName: firstName,
+                email: this.state.email
+            })
         } else {
-        this.props.navigation.navigate('Birthday')
+            alert("Please enter your email.")
         }
     }
     render() {
+        const lastName = this.props.navigation.getParam("lastName", "no last name")
+        const firstName = this.props.navigation.getParam("firstName", "no first name")
         return (
             <View style={{ flex: 1 }}>
                 <Header style={{ backgroundColor: "#00bfa5" }}>
@@ -63,7 +70,7 @@ class SignUpEmailScreen extends Component {
                         <Switch value={this.state.toggleSwitch} onValueChange={this.toggleSwitchHandler} tintColor="#bbb" thumbTintColor="white" onTintColor="#64dd17" />
                     </View>
                     <View style={styles.nextButton}>
-                        <TouchableOpacity onPress={() => this.credentialsHandler()}>
+                        <TouchableOpacity onPress={() => this.credentialsHandler(lastName, firstName)}>
                             <View style={styles.buttonStyle}>                         
                                 <Icon name="ios-arrow-forward" size={24} color="#00bfa5" />                             
                             </View>
