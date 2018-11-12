@@ -3,9 +3,9 @@ import { ADD_USER } from "../actions/actionTypes";
 const initialState = {
     firstName: "",
     lastName: "",
-    email: "",
+    email: " ",
     birthday: "",
-    password: ""
+    password: " "
 };
 
 const reducer = (state = initialState, action) => {
