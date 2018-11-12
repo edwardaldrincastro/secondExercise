@@ -5,6 +5,8 @@ import BirthdayScreen from "./src/components/screens/SignUpScreens/SignUpBirthda
 import NameScreen from "./src/components/screens/SignUpScreens/SignUpNameScreen";
 import EmailScreen from "./src/components/screens/SignUpScreens/SignUpEmailScreen";
 import SuccessScreen from "./src/components/screens/SignUpScreens/SignUpSuccessScreen";
+import MapScreen from "./src/components/screens/TripsScreens/PickLocation";
+import TripScreen from "./src/components/screens/TripsScreen";
 import { createStackNavigator, createSwitchNavigator } from "react-navigation";
 import TabNavigator from "./src/components/navigators/tabNavigator";
 
@@ -22,7 +24,7 @@ const AuthStack = createStackNavigator({
   Email: EmailScreen,
   Birthday: BirthdayScreen,
   Success: SuccessScreen,
-  Login: LoginScreen
+  Login: LoginScreen,
 },{
 navigationOptions: {
      header: null

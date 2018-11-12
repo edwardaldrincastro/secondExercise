@@ -6,6 +6,7 @@ import InboxScreen from "../screens/InboxScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import SavedScreen from "../screens/SavedScreen";
 import TripsScreen from "../screens/TripsScreen";
+import MapScreen from "../screens/TripsScreens/PickLocation"
 
 
 
@@ -55,4 +56,6 @@ const TabNavigator = createBottomTabNavigator({
   },
 );
   
+
+
 export default TabNavigator;
