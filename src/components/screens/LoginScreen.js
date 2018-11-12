@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, TextInput, Dimensions, AsyncS
 import Icon from "react-native-vector-icons/Ionicons";
 import { Header, Left } from "native-base";
 import { users } from "../data/users";
+import { connect } from "react-redux";
 
 const item = ""
 class LoginScreen extends Component {
@@ -64,11 +65,11 @@ class LoginScreen extends Component {
         // alert(`${data}.${datas}`)
         if ((this.state.email && this.state.password) !== "") {
 
-            let user = this.state.users
+            // let user = this.state.users
             // const result = user.filter(word => this.state.email === word.email)
             // user.map((item, index) => {
-                const result = user.find(element => element.email === this.state.email)
-                if (result && result.email === this.state.email && result.password === this.state.password) {
+                // const result = user.find(element => element.email === this.state.email)
+                if (this.props.email === this.state.email && this.props.password === this.state.password) {
                     // if (data.email === this.state.email && data.password === this.state.password) {
                         return this.props.navigation.navigate('Entry')
                     } else {
@@ -90,39 +91,9 @@ class LoginScreen extends Component {
                 
             }
     }
-    //     asyncLoginhandler = async () => {
-    //             let userId = 'AB01';
-    //             try {
-    //                 console.log("Gonna get that")
-    //               result = await AsyncStorage.getItem(userId) || 'none';
-    //               console.log("got it")
-    //             //  item = JSON.parse(result)
 
-
-    //             } catch (error) {
-    //               // Error retrieving data
-    //               alert(error.message)
-    //               console.log(error.message);
-    //             }
-    //             return result
-    //     }
-    //     checker = async () => {
-    //         let userId = 'AB01';
-    //         try {
-    //             console.log("Gonna get that")
-    //           result = await AsyncStorage.getItem(userId) || 'none';
-    //           console.log("got it")
-    //          item = JSON.parse(result)
-
-
-    //         } catch (error) {
-    //           // Error retrieving data
-    //           alert(error.message)
-    //           console.log(error.message);
-    //         }
-    //         return alert(result)
-    // }
     render() {
+        // alert(this.props.firstName)
         return (
             <View style={{ flex: 1 }}>
                 <Header style={{ backgroundColor: "#00bfa5" }}>
@@ -188,6 +159,16 @@ class LoginScreen extends Component {
     // }
 
 }
+const mapStateToProps = state => {
+    return {
+        firstName: state.signUp.firstName,
+        lastName: state.signUp.lastName,
+        email: state.signUp.email,
+        password: state.signUp.password,
+        birthday: state.signUp.birthday
+    }
+}
+
 
 const styles = StyleSheet.create({
     container: {
@@ -255,4 +236,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default LoginScreen;
+export default connect(mapStateToProps)(LoginScreen);

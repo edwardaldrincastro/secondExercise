@@ -1,1 +1,1 @@
-export { ADD_USER} from './actionTypes'
+export { addUser} from './signUp'

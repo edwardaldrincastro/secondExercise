@@ -4,7 +4,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 import { Header, Left } from "native-base";
 import { users } from "../../data/users";
 import { connect } from "react-redux";
-import { addUser } from "../../../store/actions/index";
+import { myAction } from "../../../store/actions/signUp";
 
 const lastName = ""
 const firstName = ""
@@ -19,9 +19,11 @@ class SignUpSuccessScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-           num : 1,
-           numbato: 2,
-           numbate: 3
+            fname: "",
+            lname: "",
+            mail: "",
+            password: null,
+            birthday: null
         };
     }
 
@@ -35,23 +37,11 @@ class SignUpSuccessScreen extends Component {
         }
       };
     accountCreationHandler = (lastName, firstName, email) => {
-        // this.setState({
-        //     lastName: lastName,
-        //     firstName: firstName,
-        //     email: email,
-        //     password: "password",
-        //     birthday: birthday
-
-        // })
-        // alert(lastName)
-        // this.props.onAddUser("firstName", "lastName", "email", "01/04/1998", "password")
-        // users.push({
-        //     lastName: lastName,
-        //     firstName: firstName,
-        //     email: email,
-        //     password: "password",
-        //     birthday: "01/01/98"
-        // })
+       this.setState({
+           lastName: lastName,
+           firstName: firstName,
+           email: email
+       })
     }
 
     submitHandler = () => {
@@ -85,9 +75,11 @@ class SignUpSuccessScreen extends Component {
         birthday = this.props.navigation.getParam("birthday", "no birthday")
 
         // alert(birthday)
-
-        this.accountCreationHandler(lastName, firstName, email)
-        prevProps.myAction(this.state.num, this.state.numbato, this.state.numbate)
+        // this.props.accountCreationHandler(lastName, firstName, email)
+        // alert(this.state.lname)
+        this.props.createAccount(lastName, firstName, email)
+        // alert(this.state.lname)
+        // this.props.myAction(this.state.num, this.state.numbato, this.state.numbate)
         // this.saveUserId()
     }
 
@@ -143,19 +135,9 @@ const styles = StyleSheet.create({
     }
 });
 
-const mapStateToProps = state => {
-    return {
-        firstName: state.signUp.firstName,
-        lastName: state.signUp.lastName,
-        email: state.signUp.email,
-        password: state.signUp.password,
-        birthday: state.signUp.birthday
-    }
-}
-
 const mapDispatchToProps = dispatch => {
     return {
-        myAction: (n,m,l) => dispatch(addUser(n,m,l))
+        createAccount: (lastName, firstName, email) => dispatch(myAction(lastName, firstName, email))
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(SignUpSuccessScreen);
+export default connect(null, mapDispatchToProps)(SignUpSuccessScreen);
