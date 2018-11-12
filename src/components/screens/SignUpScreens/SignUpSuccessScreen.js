@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, AsyncStorage } from 'react-native';
-import Icon from "react-native-vector-icons/Ionicons";
-import { Header, Left } from "native-base";
-import { users } from "../../data/users";
+import { StackActions, NavigationActions } from 'react-navigation';
+
 import { connect } from "react-redux";
 import { myAction } from "../../../store/actions/signUp";
 
@@ -10,10 +9,7 @@ const lastName = ""
 const firstName = ""
 const email = ""
 const birthday = ""
-const password = ""
-const userId = "0001"
-const account = []
-const key = "AB01"
+
 
 class SignUpSuccessScreen extends Component {
     constructor(props) {
@@ -45,7 +41,11 @@ class SignUpSuccessScreen extends Component {
     }
 
     submitHandler = () => {
-        this.props.navigation.replace('Login')
+        const resetAction = StackActions.reset({
+            index: 0,
+            actions: [NavigationActions.navigate({ routeName: 'Login' })],
+          });
+          this.props.navigation.dispatch(resetAction);
     }
     render() {
         return (
@@ -77,7 +77,8 @@ class SignUpSuccessScreen extends Component {
         // alert(birthday)
         // this.props.accountCreationHandler(lastName, firstName, email)
         // alert(this.state.lname)
-        this.props.createAccount(lastName, firstName, email)
+        // alert(birthday)
+        this.props.createAccount(lastName, firstName, email, birthday)
         // alert(this.state.lname)
         // this.props.myAction(this.state.num, this.state.numbato, this.state.numbate)
         // this.saveUserId()
@@ -137,7 +138,7 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = dispatch => {
     return {
-        createAccount: (lastName, firstName, email) => dispatch(myAction(lastName, firstName, email))
+        createAccount: (lastName, firstName, email, birthday) => dispatch(myAction(lastName, firstName, email, birthday))
     }
 }
 export default connect(null, mapDispatchToProps)(SignUpSuccessScreen);

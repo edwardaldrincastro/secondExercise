@@ -7,8 +7,7 @@ class SignUpBirthdayScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            chosenDate: new Date(),
-            birthday: "",
+            chosenDate: new Date().toLocaleDateString(),
             viewMode: Dimensions.get("window").height > 500 ? "portrait" : "landscape"
         };
 
@@ -27,14 +26,14 @@ class SignUpBirthdayScreen extends Component {
         })
       }
     setDate(newDate) {
-        this.setState({ chosenDate: newDate });
+        this.setState({ chosenDate: newDate.toLocaleDateString()});
     }
     submitHandler = (lastName, firstName, email) => {
         this.props.navigation.navigate('Success', {
             lastName: lastName,
             firstName: firstName,
             email: email,
-            birthday: this.state.birthday
+            birthday: this.state.chosenDate
         })
     }
     render() {
@@ -68,7 +67,7 @@ class SignUpBirthdayScreen extends Component {
                             modalTransparent={false}
                             animationType={"fade"}
                             androidMode={"spinner"}
-                            placeHolderText={this.state.chosenDate.toString().substr(4, 12)}
+                            placeHolderText={this.state.chosenDate}
                             textStyle={{ color: "white", fontSize: 13, marginRight: "66%", marginTop: 10 }}
                             placeHolderTextStyle={{ color: "white", fontSize: 13, marginRight: "66%", marginTop: 10 }}
                             onDateChange={this.setDate}

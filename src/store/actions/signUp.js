@@ -16,7 +16,7 @@ export const addUser = (lastName, firstName, email) => {
 };
 
 
-export const myAction = (lastName, firstName, email) => {
+export const myAction = (lastName, firstName, email, birthday) => {
     
     
     return {
@@ -24,7 +24,7 @@ export const myAction = (lastName, firstName, email) => {
         lastName: lastName,
         firstName: firstName,
         email: email,
-        // birthday: birthday,
+        birthday: birthday,
         // password: password
 
     };
