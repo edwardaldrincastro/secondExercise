@@ -5,7 +5,7 @@ const initialState = {
     lastName: "",
     email: " ",
     birthday: "",
-    password: " "
+    password: " ",
 };
 
 const reducer = (state = initialState, action) => {
@@ -22,7 +22,7 @@ const reducer = (state = initialState, action) => {
             }
         default:
             return state;
+            }
     }
-}
 
-export default reducer;
+    export default reducer;

@@ -14,19 +14,19 @@ class SignUpNameScreen extends Component {
             viewMode: Dimensions.get("window").height > 500 ? "portrait" : "landscape"
         };
         Dimensions.addEventListener("change", this.updateStyles)
-    
-      }
-    
-      componentWillUnmount() {
+
+    }
+
+    componentWillUnmount() {
         Dimensions.removeEventListener("change", this.updateStyles)
-      }
-    
-      updateStyles = (dims) => {
+    }
+
+    updateStyles = (dims) => {
         this.setState({
-          // viewMode: Dimensions.get("window").height > 500 ? "portrait" : "landscape"
-          viewMode: dims.window.height > 500 ? "portrait" : "landscape"
+            // viewMode: Dimensions.get("window").height > 500 ? "portrait" : "landscape"
+            viewMode: dims.window.height > 500 ? "portrait" : "landscape"
         })
-      }
+    }
     firstNameChangedHandler = (input) => {
         this.setState({
             firstName: input
@@ -38,14 +38,14 @@ class SignUpNameScreen extends Component {
         })
     }
     credentialsHandler = () => {
-        if ((this.state.firstName && this.state.lastName) !== ""){
-            
-            this.props.navigation.navigate('Email', 
-            {
-                lastName: this.state.lastName, 
-                firstName: this.state.firstName
-            })
-            
+        if ((this.state.firstName && this.state.lastName) !== "") {
+
+            this.props.navigation.navigate('Email',
+                {
+                    lastName: this.state.lastName,
+                    firstName: this.state.firstName
+                })
+
         } else {
             alert("Please enter your first name and/or last name.")
         }
@@ -59,22 +59,21 @@ class SignUpNameScreen extends Component {
                     </Left>
                 </Header>
                 <View style={styles.container}>
-                <Text style={this.state.viewMode === "portrait" ? styles.portraitWelcome : styles.landscapeWelcome}>What is your name?</Text>
-            
+                    <Text style={this.state.viewMode === "portrait" ? styles.portraitWelcome : styles.landscapeWelcome}>What is your name?</Text>
                     <Text style={this.state.viewMode === "portrait" ? styles.portraitTitle : styles.landscapeTitle}>FIRST NAME</Text>
-                
+
                     <View style={styles.firstNameInput}>
-                        <TextInput 
-                        onChangeText={(val) => this.firstNameChangedHandler(val)} 
-                        underlineColorAndroid="white" 
-                        value={this.state.firstName}/>
+                        <TextInput
+                            onChangeText={(val) => this.firstNameChangedHandler(val)}
+                            underlineColorAndroid="white"
+                            value={this.state.firstName} />
                     </View>
                     <Text style={this.state.viewMode === "portrait" ? styles.portraitTitle : styles.landscapeTitle}>LAST NAME</Text>
                     <View style={styles.lastNameInput}>
-                        <TextInput 
-                        onChangeText={(val) => this.lastNameChangedHandler(val)} 
-                        underlineColorAndroid="white" 
-                        value={this.state.lastName}/>
+                        <TextInput
+                            onChangeText={(val) => this.lastNameChangedHandler(val)}
+                            underlineColorAndroid="white"
+                            value={this.state.lastName} />
                     </View>
                     <View style={styles.nextButton}>
                         <TouchableOpacity onPress={() => this.credentialsHandler()}>
