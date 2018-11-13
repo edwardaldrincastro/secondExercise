@@ -61,9 +61,10 @@ class TripsScreen extends Component {
   submitPlacehandler = () => {
     console.log("Pumasok sa submit place handler")
     
-    console.log(`submit places state: ${this.state.places.location.latitude}`)
-    this.props.addPlaceToRedux(this.state.places.placeName, this.state.places.location.latitude, this.state.places.location.longitude)
+    console.log(`submit places state longi: ${this.state.places.location.longitude}`)
+    this.props.addPlaceToRedux(this.state.places.placeName, this.state.places.image, this.state.places.location.latitude, this.state.places.location.longitude)
     console.log("Done sa submit place handler")
+    console.log(`my state: ${this.state}`)
   }
   render() {
     return (
