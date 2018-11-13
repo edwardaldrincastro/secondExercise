@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, AsyncStorage } from 'react-na
 import { StackActions, NavigationActions } from 'react-navigation';
 
 import { connect } from "react-redux";
-import { myAction } from "../../../store/actions/signUp";
+import { addUser } from "../../../store/actions/signUp";
 
 const lastName = ""
 const firstName = ""
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = dispatch => {
     return {
-        createAccount: (lastName, firstName, email, birthday) => dispatch(myAction(lastName, firstName, email, birthday))
+        createAccount: (lastName, firstName, email, birthday) => dispatch(addUser(lastName, firstName, email, birthday))
     }
 }
 export default connect(null, mapDispatchToProps)(SignUpSuccessScreen);

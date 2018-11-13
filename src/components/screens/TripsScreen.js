@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { ScrollView, Text, StyleSheet, Dimensions } from 'react-native';
 import PickLocation from "../screens/TripsScreens/PickLocation";
 import PickImage from "../screens/TripsScreens/PickImage";
 
@@ -14,11 +14,11 @@ class TripsScreen extends Component {
 
 render() {
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Text style={styles.title}> Trips </Text>
       <PickLocation/>
       <PickImage/>
-    </View>
+    </ScrollView>
   );
 }
 }

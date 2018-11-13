@@ -65,7 +65,9 @@ class PickLocation extends Component {
                     onPress={this.pickLocationHandler}
                     ref={ref => this.map = ref}>
                     {marker}</MapView>
-                <Button title="Location" onPress={this.getLocationHandler} />
+                <View style={{ width: "60%", margin: 10 }}>
+                    <Button title="Location" onPress={this.getLocationHandler} />
+                </View>
             </View>
         );
     }
@@ -73,9 +75,9 @@ class PickLocation extends Component {
 const styles = StyleSheet.create({
     container: {
         width: "100%",
-        height: "50%",
-        // justifyContent: "center", 
-        // alignItems: "center",
+        height: 225,
+        justifyContent: "center",
+        alignItems: "center",
         backgroundColor: "#fff"
     },
     title: {
@@ -88,8 +90,8 @@ const styles = StyleSheet.create({
         color: "#6d6d6d"
     },
     map: {
-        width: "100%",
-        height: 220
+        width: "90%",
+        height: 190
     }
 })
 export default PickLocation;

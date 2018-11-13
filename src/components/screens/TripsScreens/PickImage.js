@@ -29,13 +29,18 @@ class PickImage extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <View style={{ height: "50%", width: "100%", justifyContent: "center", alignItems: "center" }}>
-                    <Image source={this.state.imagePicked} style={{ height: 180, width: 200 }} />
+                {/* <View style={{ height: 220, width: "100%", backgroundColor: "#eee"}}> */}
+                {/* <Image source={this.state.imagePicked} style={{ height: 150, width: 200 }} /> */}
+                {/* </View> */}
+                <View style={{ width: "100%", height: 190, justifyContent: 'center', alignItems: 'center' }}>
+                    <View style={{height: 150, width: 200, borderWidth: 1, borderColor: "#000", backgroundColor:"#eee"}}>
+                        <Image source={this.state.imagePicked} style={{ height: "100%", width: "100%" }} />
+                    </View>
                 </View>
-                <View>
-
+                <View style={{ width: "60%", margin: 10 }}>
                     <Button title="Pick image" onPress={this.pickImageHandler} />
                 </View>
+
             </View>
         );
     }
@@ -45,10 +50,11 @@ export default PickImage;
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: "#eee",
-        // flexDirection: 'column',
-        // justifyContent: 'space-evenly',
+        width: "100%",
+        height: 225,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: "#fff",
 
     }
 })
