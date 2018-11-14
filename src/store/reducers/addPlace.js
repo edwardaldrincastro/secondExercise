@@ -1,28 +1,18 @@
-import { ADD_PLACE } from "../actions/actionTypes";
+import { SET_PLACE } from "../actions/actionTypes";
 
 const initialState = {
     places: []
 };
 
 const reducer = (state = initialState, action) => {
+    console.log(`addplaces reducers pumasok`)
+    console.log(`places reducers: ${action.places}`)
     switch (action.type) {
-        case ADD_PLACE:
-
-        console.log(`action placename: ${action.placeName}`)
-            // console.log(`action image: ${action.image}`)
-            return {
-                ...state,
-                places: state.places.concat({
-                    placeName: action.placeName,
-                    image: {
-                        uri: action.image
-                    },
-                    location: {
-                        latitude: action.location.latitude,
-                        longitude: action.location.longitude
-                    }
-                })
-            }
+        case SET_PLACE: 
+        return {
+            ...state,
+            places: action.places
+        }
         default:
             return state;
     }

@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     },
     map: {
         width: "90%",
-        height: 190
+        height: 200
     }
 })
 export default PickLocation;

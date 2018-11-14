@@ -1,5 +1,14 @@
 import React, { Component } from 'react';
-import { View, TextInput, Button, ScrollView, Text, StyleSheet, Dimensions } from 'react-native';
+import {
+  ActivityIndicator,
+  View,
+  TextInput,
+  Button,
+  ScrollView,
+  Text,
+  StyleSheet,
+  Dimensions
+} from 'react-native';
 import PickLocation from "../screens/TripsScreens/PickLocation";
 import PickImage from "../screens/TripsScreens/PickImage";
 import { addPlace } from "../../store/actions/addPlace";
@@ -20,7 +29,7 @@ class TripsScreen extends Component {
     };
   }
   addPlaceHandler = (placeName) => {
-    this.setState(prevState=>{
+    this.setState(prevState => {
       return {
         ...prevState,
         places: {
@@ -32,7 +41,7 @@ class TripsScreen extends Component {
   }
   locationPickedHandler = (location) => {
     console.log(`Pumasok sa location picked handler. Location:${location.latitude}+${location.longitude}`)
-    this.setState(prevState=>{
+    this.setState(prevState => {
       return {
         ...prevState,
         places: {
@@ -42,13 +51,13 @@ class TripsScreen extends Component {
             latitude: location.latitude,
             longitude: location.longitude
           }
-        }  
+        }
       }
     })
     console.log("Done sa location picked handler")
   }
   imagePickedHandler = (image) => {
-    this.setState(prevState=>{
+    this.setState(prevState => {
       return {
         ...prevState,
         places: {
@@ -60,26 +69,30 @@ class TripsScreen extends Component {
   }
   submitPlacehandler = () => {
     console.log("Pumasok sa submit place handler")
-    
+
     console.log(`submit places state longi: ${this.state.places.location.longitude}`)
     this.props.addPlaceToRedux(this.state.places.placeName, this.state.places.image, this.state.places.location.latitude, this.state.places.location.longitude)
     console.log("Done sa submit place handler")
     console.log(`my state: ${this.state}`)
   }
   render() {
+    let submitButton = (<Button title="Add place" onPress={this.submitPlacehandler} />);
+    if (this.props.isLoading) {
+      submitButton = <ActivityIndicator/>
+    }
     return (
       <ScrollView style={styles.container}>
         <Text style={styles.title}> Trips </Text>
-        <PickLocation onLocationPicked={this.locationPickedHandler}/>
+        <PickLocation onLocationPicked={this.locationPickedHandler} />
         <PickImage onImagePicked={this.imagePickedHandler} />
-        <View style={{width: "80%", alignSelf: "center" }}>
+        <View style={{ width: "80%", alignSelf: "center" }}>
           <TextInput
             onChangeText={(val) => this.addPlaceHandler(val)}
             //  underlineColorAndroid="white" 
             value={this.state.placeName} />
         </View>
-        <View style={{justifyContent: 'center', alignItems: 'center', }}>
-          <Button title="Add place" onPress={this.submitPlacehandler} />
+        <View style={{ justifyContent: 'center', alignItems: 'center', }}>
+          {submitButton}
         </View>
 
       </ScrollView>
@@ -103,9 +116,15 @@ const styles = StyleSheet.create({
     color: "#6d6d6d"
   },
 })
-const mapDispatchToProps = dispatch => {
+
+const mapStateToProps = state => {
   return {
-      addPlaceToRedux: (placeName, image, latitude, longitude) => dispatch(addPlace(placeName, image, latitude, longitude))
+    isLoading: state.ui.isLoading
   }
 }
-export default connect(null, mapDispatchToProps)(TripsScreen);
+const mapDispatchToProps = dispatch => {
+  return {
+    addPlaceToRedux: (placeName, image, latitude, longitude) => dispatch(addPlace(placeName, image, latitude, longitude))
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(TripsScreen);
