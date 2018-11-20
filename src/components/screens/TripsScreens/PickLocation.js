@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Dimensions, Button, TouchableHighlight } from 'react-native';
+import { View, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 import MapView from 'react-native-maps'
+import Icon from "react-native-vector-icons/Ionicons";
+import { connect } from "react-redux";
+import { addLocation } from "../../../store/actions/placeContainer";
 
 class PickLocation extends Component {
     constructor(props) {
         super(props);
         this.state = {
             focusedLocation: {
-                latitude: 14.5557,
-                longitude: 121.05,
+                latitude: 14.549299,
+                longitude: 121.050855,
                 latitudeDelta: 0.0118,
                 longitudeDelta: Dimensions.get("window").width / Dimensions.get("window").height * 0.0118
             },
@@ -32,12 +35,12 @@ class PickLocation extends Component {
                 locationChosen: true
             }
         })
-        this.props.onLocationPicked({
-            latitude: coords.latitude,
-            longitude: coords.longitude
-        })
+        // this.props.onLocationPicked({
+        //     latitude: coords.latitude,
+        //     longitude: coords.longitude
+        // })
+        this.props.addLocationToRedux({latitude: coords.latitude, longitude: coords.longitude})
     }
-
     getLocationHandler = () => {
         navigator.geolocation.getCurrentPosition(pos => {
             const coordsEvent = {
@@ -56,6 +59,7 @@ class PickLocation extends Component {
             })
     }
     render() {
+        console.log(this.state.focusedLocation)
         let marker = null
         if (this.state.locationChosen) {
             marker = <MapView.Marker coordinate={this.state.focusedLocation} />
@@ -67,9 +71,12 @@ class PickLocation extends Component {
                     initialRegion={this.state.focusedLocation}
                     onPress={this.pickLocationHandler}
                     ref={ref => this.map = ref}>
-                    {marker}</MapView>
-                <View style={{ width: "60%", margin: 10 }}>
-                    <Button title="Location" onPress={this.getLocationHandler} />
+                    {marker}
+                </MapView>
+                <View style={{ right: 5, position: 'absolute', bottom: 5 }}>
+                    <TouchableOpacity onPress={this.getLocationHandler}>
+                        <Icon name="md-locate" size={20} color="#0277bd" style={styles.locateIcon} />
+                    </TouchableOpacity>
                 </View>
             </View>
         );
@@ -77,10 +84,7 @@ class PickLocation extends Component {
 }
 const styles = StyleSheet.create({
     container: {
-        width: "100%",
-        height: 225,
-        justifyContent: "center",
-        alignItems: "center",
+        flex: 1,
         backgroundColor: "#fff"
     },
     title: {
@@ -93,8 +97,29 @@ const styles = StyleSheet.create({
         color: "#6d6d6d"
     },
     map: {
-        width: "90%",
-        height: 200
+        height: "100%",
+        width: "100%",
+    },
+    locateIcon: {
+        textAlign: 'center',
+        textAlignVertical: 'center',
+        height: 30,
+        width: 30,
+        backgroundColor: "white",
+        borderWidth: 1,
+        borderColor: "white",
+        borderRadius: 100
     }
 })
-export default PickLocation;
+const mapStateToProps = state => {
+    return {
+        isLoading: state.ui.isLoading,
+        locationFromRedux: state.placeContainer.placeContainer.location.latitude
+    }
+}
+const mapDispatchToProps = dispatch => {
+    return {
+        addLocationToRedux: (location) => dispatch(addLocation(location))
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(PickLocation);

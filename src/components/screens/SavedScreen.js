@@ -13,11 +13,13 @@ class SavedScreen extends Component {
       savedList: saved_list,
       messages: messages
     };
-  } 
+  }
   componentDidMount() {
     this.props.onLoadPlaces()
   }
- 
+  //  componentDidUpdate() {
+  //    this.props.onLoadPlaces()
+  //  }
   render() {
     return (
       <View style={{ flex: 1, backgroundColor: "white" }}>

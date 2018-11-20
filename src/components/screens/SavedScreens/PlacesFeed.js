@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { Modal, View, Text, Image, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
+import { Modal, View, Text, Image, ImageBackground, StyleSheet, TouchableOpacity, Dimensions, ScrollView } from 'react-native';
 import { connect } from "react-redux";
+import Icon from "react-native-vector-icons/Ionicons";
 import MapView from 'react-native-maps';
 import PlaceList from "../SavedScreens/PlaceList";
+import { deletePlace, getPlaces } from "../../../store/actions/addPlace";
 
 
 class PlacesFeed extends Component {
@@ -10,6 +12,7 @@ class PlacesFeed extends Component {
     super(props);
     this.state = {
       modalVisible: false,
+      selectedId: null,
       selectedPlace: null,
       selectedImage: null,
       focusedLocation: {
@@ -23,9 +26,11 @@ class PlacesFeed extends Component {
   setModalVisible(modalInput) {
     this.setState({ modalVisible: modalInput });
   }
-  selectedHandler = (placeName, image, latitude, longitude) => {
+  selectedHandler = (id, placeName, image, latitude, longitude) => {
+    console.log("selectedHandler: ", id)
     this.setState(prevState => {
       return {
+        selectedId: id,
         selectedPlace: placeName,
         selectedImage: image,
         focusedLocation: {
@@ -37,6 +42,10 @@ class PlacesFeed extends Component {
     })
     this.setModalVisible(true)
   }
+  deleteHandler = () => {
+    this.props.onDeletePlace(this.state.selectedId)
+    this.setModalVisible(!this.state.modalVisible)
+  }
   render() {
 
     return (
@@ -47,28 +56,41 @@ class PlacesFeed extends Component {
           transparent={true}
           visible={this.state.modalVisible}
           onRequestClose={() => {
-            alert('Modal has been closed.');
+            alert('Modal has been closed.')
+            this.setModalVisible(false);
           }}>
           <View style={{ width: "100%", height: "100%", backgroundColor: "#eee" }}>
-            <View style={styles.modalContainer}>
-              <Image style={styles.modalImage} source={{ uri: this.state.selectedImage }} />
-              <View style={{alignItems:"flex-start"}}>
-                <Text>Name: {this.state.selectedPlace}</Text>
-                <Text>Latitude: {this.state.focusedLocation.latitude}</Text>
-                <Text>Longitude: {this.state.focusedLocation.longitude}</Text>
+            <ScrollView showsVerticalScrollIndicator={false}>
+              <View style={styles.modalContainer}>
+                <Icon name="md-close" size={25} color="#4f4f4f" onPress={() => this.setModalVisible(false)} style={{ margin: 15 }} />
+                <View style={{ width: "85%", height: 200 }}>
+                  <ImageBackground source={{ uri: this.state.selectedImage }} style={{
+                    width: '100%',
+                    height: '100%'
+                  }} />
+                </View>
+                <Text style={styles.forgotPassword}>{this.state.selectedPlace}</Text>
+                <View style={{ width: "85%", height: 200, backgroundColor: "#00b0ff" }}>
+                  <MapView
+                    style={styles.map}
+                    region={this.state.focusedLocation}
+                    // onPress={this.pickLocationHandler}
+                    ref={ref => this.map = ref}>
+                    <MapView.Marker coordinate={this.state.focusedLocation} /></MapView>
+                </View>
+                {/* <View style={{ width: "100%", justifyContent: 'center',}}>
+                  <Text style={styles.enterMail}>Location: {this.state.focusedLocation.latitude}</Text>
+                  <Text style={styles.enterMail}>Location: {this.state.focusedLocation.longitude}</Text>
+                </View> */}
+                <TouchableOpacity onPress={() => alert('Passowrd recovery sent')}>
+                  <View style={styles.deleteButton}>
+                    <Text style={styles.buttonText}>DELETE PLACE</Text>
+                  </View>
+                </TouchableOpacity>
+
+
               </View>
-              <MapView
-                style={styles.map}
-                region={this.state.focusedLocation}
-                ref={ref => this.map = ref}>
-                <MapView.Marker coordinate={this.state.focusedLocation} /></MapView>
-              <TouchableOpacity
-                onPress={() => {
-                  this.setModalVisible(!this.state.modalVisible);
-                }}>
-                <Text>Hide Modal</Text>
-              </TouchableOpacity>
-            </View>
+            </ScrollView>
           </View>
         </Modal>
       </View >
@@ -79,8 +101,8 @@ class PlacesFeed extends Component {
 const styles = StyleSheet.create({
   modalContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: "center"
+    alignItems: 'center',
+    backgroundColor: "#fff"
   },
   image: {
     width: 60,
@@ -98,8 +120,33 @@ const styles = StyleSheet.create({
     flex: 1
   },
   map: {
-    width: "90%",
-    height: 190
+    width: "100%",
+    height: "100%"
+  },
+  deleteButton: {
+    height: 40,
+    width: 250,
+    backgroundColor: '#f44336',
+    margin: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 20,
+  },
+  buttonText: {
+    fontSize: 14,
+    color: "#fff"
+  },
+  forgotPassword: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    margin: 10,
+    color: "#4f4f4f"
+  },
+  enterMail: {
+    fontSize: 14,
+    textAlign: 'center',
+    margin: 10,
+    color: "#8e8e8e"
   }
 
 })
@@ -108,5 +155,12 @@ const mapStateToProps = state => {
     places: state.addPlace.places
   }
 }
+const mapDispatchToProps = dispatch => {
+  return {
+    onDeletePlace: (id) => dispatch(deletePlace(id)),
+    onLoadPlaces: () => dispatch(getPlaces())
 
-export default connect(mapStateToProps, null)(PlacesFeed);
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PlacesFeed);

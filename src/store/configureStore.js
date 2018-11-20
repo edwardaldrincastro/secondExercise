@@ -2,11 +2,13 @@ import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
 import thunk from "redux-thunk"
 import signUpReducers from './reducers/signUp';
 import addPlaceReducers from './reducers/addPlace';
+import placeContainerReducers from "./reducers/placeContainer";
 import uiReducers from "./reducers/ui";
 
 const rootReducer = combineReducers({
     signUp: signUpReducers,
     addPlace: addPlaceReducers,
+    placeContainer: placeContainerReducers,
     ui: uiReducers
 });
 

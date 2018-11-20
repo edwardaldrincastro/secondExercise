@@ -7,7 +7,7 @@ const PlaceList = (props) => {
         <View>
             {props.places.map((item, index) => (
                 <View key={index}>
-                    <TouchableOpacity onPress={() => props.onSelectedPlace(item.placeName, item.image, item.location.latitude, item.location.longitude)}>
+                    <TouchableOpacity onPress={() => props.onSelectedPlace(item.id, item.placeName, item.image, item.location.latitude, item.location.longitude)}>
                         <View>
                             <View style={{ flexDirection: "row", margin: 10 }}>
                                 <Image style={styles.image} source={{ uri: item.image }} />
@@ -30,24 +30,23 @@ const styles = StyleSheet.create({
         width: 60,
         height: 60,
         borderRadius: 100
-      },
-      message: {
+    },
+    message: {
         marginLeft: 10,
         marginRight: 10,
         flexDirection: "column",
         flex: 1
-      },
-      map: {
+    },
+    map: {
         width: "90%",
         height: 190
-      }
+    }
 })
 
 const mapStateToProps = state => {
     return {
-      places: state.addPlace.places
+        places: state.addPlace.places
     }
-  }
+}
 
-  export default connect(mapStateToProps, null)(PlaceList);
-  
+export default connect(mapStateToProps, null)(PlaceList);
